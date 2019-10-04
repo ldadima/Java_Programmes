@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+void *thr_func(void *arg) {
+	printf("Thread 2: string 0\n");
+	printf("Thread 2: string 1\n");
+	printf("Thread 2: string 2\n");
+	printf("Thread 2: string 3\n");
+	printf("Thread 2: string 4\n");
+	printf("Thread 2: string 5\n");
+	printf("Thread 2: string 6\n");
+	printf("Thread 2: string 7\n");
+	printf("Thread 2: string 8\n");
+	printf("Thread 2: string 9\n");
+	pthread_exit((void *) 0);
+//	return ((void *) 0); // есть 2 варианта завершения нити, экзит более правильный, но пофиг
+};
+
+int main(int argc, char* argv[]) {
+	int err;
+	void *stat; //2ая задача, для join нужно
+	pthread_t thr2;
+	err = pthread_create(&thr2, NULL, thr_func, NULL);
+	if (err != 0) {
+		perror("Thread creation error");
+	}
+	err=pthread_join(thr2,&stat); //нужно для 2ой задачи, можно было сделать и в 1ой, но я подумал, что так нелогично
+	if (err != 0) {
+		perror("Thread waiting error");
+	}
+	printf("Thread 1: string 0\n");//лучше фигакнуть цикл, но так работает быстрее
+	printf("Thread 1: string 1\n");
+	printf("Thread 1: string 2\n");
+	printf("Thread 1: string 3\n");
+	printf("Thread 1: string 4\n");
+	printf("Thread 1: string 5\n");
+	printf("Thread 1: string 6\n");
+	printf("Thread 1: string 7\n");
+	printf("Thread 1: string 8\n");
+	printf("Thread 1: string 9\n");
+	//sleep(1);//нужно для ожидания дочерней нити основной нитью(при окончании главной нити заканчивается и главный процесс)
+	return 0;
+}
+//что осуществляет последовательность выполнения? типа кто отвечает за порядок исполнения нитей (если 2 ядра, то одновременно могут выполняться только 2 нити;
+//какая-то эффективность распараллеливания достигается благодаря асинхронности ввода-вывода, т.е. пока одна нить заблокирована из-за ввода, то другая может исполняться
+//информация о созданных нитях(прикладных) ядру недоступна, он знает о нитях ядра и легковесных процессах, поэтому за прикладные нити отвечает библиотека, а за порядок их выполнения планировщик
+//Есть 2 вещи нужные для этого. Обратные вызовы для общения планировщика и ядра и Активация планировщика 
+//определения этих 2х штук в Вахалии на стр 120 2ой полный абзац
+//еще юзали alias, он нужен для задания псевдонима команды, еще что-то просила сделать, инфу о процессоре, переписать переменную PATH
+//думаю последнее не нужно вам будет, но полезно
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+
+void *thr_func(void *arg) {
+	printf("Thread 2: string 0\n");
+	printf("Thread 2: string 1\n");
+	printf("Thread 2: string 2\n");
+	printf("Thread 2: string 3\n");
+	printf("Thread 2: string 4\n");
+	printf("Thread 2: string 5\n");
+	printf("Thread 2: string 6\n");
+	printf("Thread 2: string 7\n");
+	printf("Thread 2: string 8\n");
+	printf("Thread 2: string 9\n");
+	pthread_exit((void *) 0);
+//	return ((void *) 0); // есть 2 варианта завершения нити, экзит более правильный, но пофиг
+};
+
+int main(int argc, char* argv[]) {
+	int err;
+	void *stat; //2ая задача, для join нужно
+	pthread_t thr2;
+	err = pthread_create(&thr2, NULL, thr_func, NULL);
+	if (err != 0) {
+		perror("Thread creation error");
+	}
+	err=pthread_join(thr2,&stat); //нужно для 2ой задачи, можно было сделать и в 1ой, но я подумал, что так нелогично
+	if (err != 0) {
+		perror("Thread waiting error");
+	}
+	printf("Thread 1: string 0\n");//лучше фигакнуть цикл, но так работает быстрее
+	printf("Thread 1: string 1\n");
+	printf("Thread 1: string 2\n");
+	printf("Thread 1: string 3\n");
+	printf("Thread 1: string 4\n");
+	printf("Thread 1: string 5\n");
+	printf("Thread 1: string 6\n");
+	printf("Thread 1: string 7\n");
+	printf("Thread 1: string 8\n");
+	printf("Thread 1: string 9\n");
+	//sleep(1);//нужно для ожидания дочерней нити основной нитью(при окончании главной нити заканчивается и главный процесс)
+	return 0;
+}
+//что осуществляет последовательность выполнения? типа кто отвечает за порядок исполнения нитей (если 2 ядра, то одновременно могут выполняться только 2 нити;
+//какая-то эффективность распараллеливания достигается благодаря асинхронности ввода-вывода, т.е. пока одна нить заблокирована из-за ввода, то другая может исполняться
+//информация о созданных нитях(прикладных) ядру недоступна, он знает о нитях ядра и легковесных процессах, поэтому за прикладные нити отвечает библиотека, а за порядок их выполнения планировщик
+//Есть 2 вещи нужные для этого. Обратные вызовы для общения планировщика и ядра и Активация планировщика 
+//определения этих 2х штук в Вахалии на стр 120 2ой полный абзац
+//еще юзали alias, он нужен для задания псевдонима команды, еще что-то просила сделать, инфу о процессоре, переписать переменную PATH
+//думаю последнее не нужно вам будет, но полезно
