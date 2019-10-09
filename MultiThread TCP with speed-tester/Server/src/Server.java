@@ -63,6 +63,7 @@ class ServerClient extends Thread {
                 }
                 fileLen = ByteBuffer.wrap(buf).getLong();
                 currLen = 0;
+                socket.setSoTimeout(10000);
                 while (currLen < fileLen) {
                     int totalRead = socketReader.read(buf, 0, LEN);
                     if (totalRead != -1) {
