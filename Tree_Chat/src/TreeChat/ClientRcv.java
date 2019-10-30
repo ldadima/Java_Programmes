@@ -105,7 +105,7 @@ class ClientRcv extends Thread {
                                     }
                                 }
                                 if (contin) {
-                                    repeatmsg.add(i, Map.entry(packet.getSocketAddress(), message.getInt("id")));
+                                    repeatmsg.add(i, Map.entry(ipMSG, message.getInt("id")));
                                     i = (i + 1) % 50;
                                     System.out.println(message.get("name") + ": " + message.get("data"));
                                     for (Map.Entry<SocketAddress, Map.Entry<SocketAddress, Integer>> neighbour : Client.neighbourList.entrySet())
