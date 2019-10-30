@@ -77,7 +77,7 @@ public class Client {
 
     static void timeUpdate(DatagramSocket socket, SocketAddress ip, int time) {
         try {
-            if (!ip.equals(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 0)))
+            if (!ip.equals(new InetSocketAddress(InetAddress.getByName("0.0.0.0"), 0))&&!neighbourList.isEmpty())
                 neighbourList.put(ip, Map.entry(neighbourList.get(ip).getKey(), 0));
             for (Iterator<Map.Entry<SocketAddress, Map.Entry<SocketAddress, Integer>>> iterator = neighbourList.entrySet().iterator(); iterator.hasNext(); ) {
                 Map.Entry<SocketAddress, Map.Entry<SocketAddress, Integer>> one = iterator.next();
