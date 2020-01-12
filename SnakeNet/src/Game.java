@@ -534,7 +534,7 @@ public class Game extends JFrame {
 
 
     private Image initImage(int id) {
-        String file = "D:/My/Network_Java_P/SnakeNet/fields/";
+        String file = "fields"; //or "../../../fields" for jar
         switch (id) {
             case 0:
                 return new ImageIcon(file + "field.png").getImage();
